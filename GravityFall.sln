@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GravityFall", "src\GravityFall\GravityFall.csproj", "{698907D2-7290-4A49-B613-61FC26DF8F28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{698907D2-7290-4A49-B613-61FC26DF8F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{698907D2-7290-4A49-B613-61FC26DF8F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{698907D2-7290-4A49-B613-61FC26DF8F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{698907D2-7290-4A49-B613-61FC26DF8F28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A1F214E-EF9C-4EBE-8B08-A6169F7B1291}
+	EndGlobalSection
+EndGlobal
