@@ -263,7 +263,7 @@ namespace Aura.GravityFall.Tests
         #region ValidatePositionTests
 
         [TestMethod()]
-        public void GameboardNotValidBallsHallsPositionTest()
+        public void GameboardNotValidHolesBallsPositionTest()
         {
             // arrange
 
