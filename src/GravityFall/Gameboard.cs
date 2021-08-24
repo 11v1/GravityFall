@@ -166,13 +166,14 @@ namespace Aura.GravityFall
 
         public void LoadShapshot(IGameboardSnapshot snapshot, bool skipValidation = false)
         {
+            var snapshotBalls = snapshot.Balls;
             if (!skipValidation)
             {
-                ValidateObjects(snapshot.Balls);
-                ValidateObjectsPosition(Holes.Concat(snapshot.Balls));
+                ValidateObjects(snapshotBalls);
+                ValidateObjectsPosition(Holes.Concat(snapshotBalls));
             }
             _balls.Clear();
-            foreach (var b in snapshot.Balls)
+            foreach (var b in snapshotBalls)
                 _balls.Add(b.Number, b);
         }
 
