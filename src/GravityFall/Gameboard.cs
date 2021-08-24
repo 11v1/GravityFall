@@ -58,8 +58,10 @@ namespace Aura.GravityFall
         /// <summary>
         /// Loads gameboard state
         /// </summary>
+        /// <param name="skipValidation">Flag may be set to true when there is no reason to think that data may be incorrect
+        /// (e.g. when you totally sure that snapshot was made from this gameboard object instance</param>
         /// <returns></returns>
-        public void LoadShapshot(IGameboardSnapshot snapshot);
+        public void LoadShapshot(IGameboardSnapshot snapshot, bool skipValidation = false);
 
         /// <summary>
         /// Removes ball from gameboard
@@ -72,7 +74,7 @@ namespace Aura.GravityFall
         /// Action can (or should) modify gameboard
         /// </summary>
         /// <param name="action"></param>
-        /// <returns>Returns list of hole-ball pairs for balls that felt in some hole</returns>
+        /// <returns>Returns list of hole-ball pairs for balls that have fallen in holes</returns>
         public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IAction action);
     }
 
@@ -133,10 +135,13 @@ namespace Aura.GravityFall
             return new GameboardSnapshot(Balls);
         }
 
-        public void LoadShapshot(IGameboardSnapshot snapshot)
+        public void LoadShapshot(IGameboardSnapshot snapshot, bool skipValidation = false)
         {
-            ValidateObjects(snapshot.Balls);
-            ValidateObjectsPosition(Holes.Concat(snapshot.Balls));
+            if (!skipValidation)
+            {
+                ValidateObjects(snapshot.Balls);
+                ValidateObjectsPosition(Holes.Concat(snapshot.Balls));
+            }
             _balls.Clear();
             foreach (var b in snapshot.Balls)
                 _balls.Add(b.Number, b);
