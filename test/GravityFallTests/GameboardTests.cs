@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using Aura.GravityFall.Actions;
 
 namespace Aura.GravityFall.Tests
 {
@@ -355,6 +356,44 @@ namespace Aura.GravityFall.Tests
 
         #endregion
 
+        #region ApplyActionTests
+
+        private class TestModifyPointsAction : IAction
+        {
+            public IEnumerable<(uint HoleNumber, uint BallNumber)> ApplyAction(IGameboard gameboard)
+            {
+                var ball = gameboard.Balls.First(p => p.Number == 1);
+                ball.X = 5;
+
+                ball = gameboard.Balls.First(p => p.Number == 2);
+                ball.Y = 7;
+
+                return null;
+            }
+        }
+
+
+        [TestMethod()]
+        public void ApplyActionModifyPointsTest()
+        {
+            // arrange
+            Gameboard gameboard = new Gameboard(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 1, Y = 2 },
+                new GameboardObject() { Number = 2, X = 1, Y = 1 }
+            });
+
+            // act
+            var result = gameboard.ApplyAction(new TestModifyPointsAction());
+
+            // assert
+            Assert.IsNull(result);
+            Assert.AreEqual((uint)5, gameboard.Balls.First(p => p.Number == 1).X);
+            Assert.AreEqual((uint)7, gameboard.Balls.First(p => p.Number == 2).Y);
+        }
+
+        #endregion
+
         //[TestMethod()]
         //public void SetBallPositionTest()
         //{
@@ -363,10 +402,6 @@ namespace Aura.GravityFall.Tests
 
 
 
-        //[TestMethod()]
-        //public void ApplyActionTest()
-        //{
-        //    Assert.Fail();
-        //}
+
     }
 }
