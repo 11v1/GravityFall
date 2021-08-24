@@ -12,7 +12,7 @@ using Ninject.Extensions.Factory;
 namespace Aura.GravityFall.Tests
 {
     [TestClass()]
-    public class GamePlayerTests
+    public class SolutionReceiverTests
     {
         [TestMethod()]
         public void GameNoHolesTest()
@@ -27,10 +27,10 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            GamePlayer gamePlayer = new(gameboard);
+            SolutionReceiver solutionReceiver = new(gameboard);
 
             // assert
-            Assert.ThrowsException<InvalidOperationException>(() => gamePlayer.GetShortestSolution(new List<IAction>()
+            Assert.ThrowsException<InvalidOperationException>(() => solutionReceiver.GetShortestSolution(new List<IAction>()
             {
                 new GravityBottomAction(),
                 new GravityTopAction(),
@@ -52,10 +52,10 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            GamePlayer gamePlayer = new(gameboard);
+            SolutionReceiver solutionReceiver = new(gameboard);
 
             // assert
-            Assert.ThrowsException<InvalidOperationException>(() => gamePlayer.GetShortestSolution(new List<IAction>()
+            Assert.ThrowsException<InvalidOperationException>(() => solutionReceiver.GetShortestSolution(new List<IAction>()
             {
                 new GravityBottomAction(),
                 new GravityTopAction(),
@@ -83,8 +83,8 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            GamePlayer gamePlayer = new(gameboard);
-            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            SolutionReceiver solutionReceiver = new(gameboard);
+            var solution = solutionReceiver.GetShortestSolution(new List<IAction>()
             {
                 new GravityBottomAction(),
                 new GravityTopAction(),
@@ -117,8 +117,8 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            GamePlayer gamePlayer = new(gameboard);
-            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            SolutionReceiver solutionReceiver = new(gameboard);
+            var solution = solutionReceiver.GetShortestSolution(new List<IAction>()
             {
                 new GravityBottomAction(),
                 new GravityTopAction(),
@@ -150,8 +150,8 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            GamePlayer gamePlayer = new(gameboard);
-            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            SolutionReceiver solutionReceiver = new(gameboard);
+            var solution = solutionReceiver.GetShortestSolution(new List<IAction>()
             {
                 new GravityBottomAction(),
                 new GravityTopAction(),
@@ -185,8 +185,8 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            GamePlayer gamePlayer = new(gameboard);
-            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            SolutionReceiver solutionReceiver = new(gameboard);
+            var solution = solutionReceiver.GetShortestSolution(new List<IAction>()
             {
                 new GravityBottomAction(),
                 new GravityTopAction(),
@@ -220,8 +220,8 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            GamePlayer gamePlayer = new(gameboard);
-            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            SolutionReceiver solutionReceiver = new(gameboard);
+            var solution = solutionReceiver.GetShortestSolution(new List<IAction>()
             {
                 new GravityBottomAction(),
                 new GravityTopAction(),
@@ -256,8 +256,8 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            GamePlayer gamePlayer = new(gameboard);
-            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            SolutionReceiver solutionReceiver = new(gameboard);
+            var solution = solutionReceiver.GetShortestSolution(new List<IAction>()
             {
                 new GravityBottomAction(),
                 new GravityTopAction(),
@@ -292,8 +292,8 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            GamePlayer gamePlayer = new(gameboard);
-            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            SolutionReceiver solutionReceiver = new(gameboard);
+            var solution = solutionReceiver.GetShortestSolution(new List<IAction>()
             {
                 new GravityBottomAction(),
                 new GravityTopAction(),
@@ -327,8 +327,8 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            GamePlayer gamePlayer = new(gameboard);
-            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            SolutionReceiver solutionReceiver = new(gameboard);
+            var solution = solutionReceiver.GetShortestSolution(new List<IAction>()
             {
                 new GravityBottomAction(),
                 new GravityTopAction(),

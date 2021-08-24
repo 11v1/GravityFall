@@ -10,7 +10,7 @@ namespace Aura.GravityFall
     /// <summary>
     /// Plays the game
     /// </summary>
-    interface IGamePlayer
+    interface ISolutionReceiver
     {
 
         /*************************************************************
@@ -25,8 +25,8 @@ namespace Aura.GravityFall
         public IList<IAction> GetShortestSolution(IEnumerable<IAction> actions);
     }
 
-    /// <inheritdoc cref="IGamePlayer"/>
-    class GamePlayer : IGamePlayer
+    /// <inheritdoc cref="ISolutionReceiver"/>
+    class SolutionReceiver : ISolutionReceiver
     {
 
         /*************************************************************
@@ -59,7 +59,7 @@ namespace Aura.GravityFall
          *  Ctors
         /*************************************************************/
 
-        public GamePlayer(IGameboard gameboard)
+        public SolutionReceiver(IGameboard gameboard)
         {
             _gameboard = gameboard;
         }
