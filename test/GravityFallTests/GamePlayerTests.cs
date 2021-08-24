@@ -65,7 +65,7 @@ namespace Aura.GravityFall.Tests
         }
 
         [TestMethod()]
-        public void GameTest1()
+        public void GameBall1ToHole1Test()
         {
             // arrange
             IKernel kernel = new StandardKernel();
@@ -94,6 +94,216 @@ namespace Aura.GravityFall.Tests
 
             // assert
             Assert.IsNotNull(solution);
+            Assert.AreEqual(1, solution.Count);
+            Assert.AreEqual(Resources.GravityTop, solution[0].Name);
         }
+
+        [TestMethod()]
+        public void GameHoleNotAccessibleTest()
+        {
+            // arrange
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 1, Y = 1 }
+            }, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 2, Y = 2 }
+            });
+
+            // act
+            GamePlayer gamePlayer = new(gameboard);
+            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            {
+                new GravityBottomAction(),
+                new GravityTopAction(),
+                new GravityLeftAction(),
+                new GravityRightAction(),
+            });
+
+            // assert
+            Assert.IsNull(solution);
+        }
+
+        [TestMethod()]
+        public void GameBalls2ToHoles2Steps1Test1()
+        {
+            // arrange
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 1, Y = 1 },
+                new GameboardObject() { Number = 2, X = 2, Y = 2 },
+            }, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 2, Y = 1 },
+                new GameboardObject() { Number = 2, X = 3, Y = 2 },
+            });
+
+            // act
+            GamePlayer gamePlayer = new(gameboard);
+            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            {
+                new GravityBottomAction(),
+                new GravityTopAction(),
+                new GravityLeftAction(),
+                new GravityRightAction(),
+            });
+
+            // assert
+            Assert.IsNotNull(solution);
+            Assert.AreEqual(1, solution.Count);
+            Assert.AreEqual(Resources.GravityLeft, solution[0].Name);
+        }
+
+        [TestMethod()]
+        public void GameBalls2ToHoles2Steps1Test2()
+        {
+            // arrange
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 8, Y = 0 },
+                new GameboardObject() { Number = 2, X = 9, Y = 0 },
+            }, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 8, Y = 9 },
+                new GameboardObject() { Number = 2, X = 9, Y = 9 },
+            });
+
+            // act
+            GamePlayer gamePlayer = new(gameboard);
+            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            {
+                new GravityBottomAction(),
+                new GravityTopAction(),
+                new GravityLeftAction(),
+                new GravityRightAction(),
+            });
+
+            // assert
+            Assert.IsNotNull(solution);
+            Assert.AreEqual(1, solution.Count);
+            Assert.AreEqual(Resources.GravityTop, solution[0].Name);
+        }
+
+        [TestMethod()]
+        public void GameBalls2ToHoles2Steps2Test1()
+        {
+            // arrange
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 8, Y = 9 },
+                new GameboardObject() { Number = 2, X = 9, Y = 9 },
+            }, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 1, Y = 1 },
+                new GameboardObject() { Number = 2, X = 2, Y = 1 },
+            });
+
+            // act
+            GamePlayer gamePlayer = new(gameboard);
+            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            {
+                new GravityBottomAction(),
+                new GravityTopAction(),
+                new GravityLeftAction(),
+                new GravityRightAction(),
+            });
+
+            // assert
+            Assert.IsNotNull(solution);
+            Assert.AreEqual(2, solution.Count);
+            Assert.AreEqual(Resources.GravityRight, solution[0].Name);
+            Assert.AreEqual(Resources.GravityBottom, solution[1].Name);
+        }
+
+        [TestMethod()]
+        public void GameBalls2ToHoles2Steps2Test2()
+        {
+            // arrange
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 0, Y = 1 },
+                new GameboardObject() { Number = 2, X = 1, Y = 1 },
+            }, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 8, Y = 9 },
+                new GameboardObject() { Number = 2, X = 9, Y = 9 },
+            });
+
+            // act
+            GamePlayer gamePlayer = new(gameboard);
+            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            {
+                new GravityBottomAction(),
+                new GravityTopAction(),
+                new GravityLeftAction(),
+                new GravityRightAction(),
+            });
+
+            // assert
+            Assert.IsNotNull(solution);
+            Assert.AreEqual(2, solution.Count);
+            Assert.AreEqual(Resources.GravityLeft, solution[0].Name);
+            Assert.AreEqual(Resources.GravityTop, solution[1].Name);
+        }
+
+        [TestMethod()]
+        public void GameBalls2ToHoles2NotAccessibleTest()
+        {
+            // arrange
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 1, Y = 1 },
+                new GameboardObject() { Number = 2, X = 2, Y = 1 },
+            }, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 8, Y = 9 },
+                new GameboardObject() { Number = 2, X = 9, Y = 9 },
+            });
+
+            // act
+            GamePlayer gamePlayer = new(gameboard);
+            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            {
+                new GravityBottomAction(),
+                new GravityTopAction(),
+                new GravityLeftAction(),
+                new GravityRightAction(),
+            });
+
+            // assert
+            Assert.IsNull(solution);
+        }
+
     }
 }
