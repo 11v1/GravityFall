@@ -108,6 +108,12 @@ namespace Aura.GravityFall
 
         public Gameboard(IGameboardFactory factory, int sizeX, int sizeY, IEnumerable<IGameboardObject> holes, IEnumerable<IGameboardObject> balls)
         {
+            // Validating values
+            if (sizeX < 1)
+                throw new ArgumentOutOfRangeException(nameof(sizeX));
+            if (sizeY < 1)
+                throw new ArgumentOutOfRangeException(nameof(sizeY));
+            // Initializing
             _factory = factory;
             // Setting gameboard size
             SizeX = sizeX;

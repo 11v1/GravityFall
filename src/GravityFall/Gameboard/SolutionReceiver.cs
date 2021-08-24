@@ -22,7 +22,7 @@ namespace Aura.GravityFall
         /// </summary>
         /// <param name="actions"></param>
         /// <returns></returns>
-        public IList<IAction> GetShortestSolution(IEnumerable<IAction> actions);
+        public IList<IAction> GetShortestSolution(IGameboard gameboard, IEnumerable<IAction> actions);
     }
 
     /// <inheritdoc cref="ISolutionReceiver"/>
@@ -59,38 +59,28 @@ namespace Aura.GravityFall
          *  Ctors
         /*************************************************************/
 
-        public SolutionReceiver(IGameboard gameboard)
-        {
-            _gameboard = gameboard;
-        }
-
 
         /*************************************************************
          *  Fields
         /*************************************************************/
-
-        /// <summary>
-        /// Gameboard to be played
-        /// </summary>
-        private readonly IGameboard _gameboard;
 
 
         /*************************************************************
          *  Methods
         /*************************************************************/
 
-        public IList<IAction> GetShortestSolution(IEnumerable<IAction> actions)
+        public IList<IAction> GetShortestSolution(IGameboard gameboard, IEnumerable<IAction> actions)
         {
-            if (_gameboard.Holes.Count == 0)
+            if (gameboard.Holes.Count == 0)
                 throw new InvalidOperationException(Resources.ExceptionNoHoles);
-            if (_gameboard.Balls.Count == 0)
+            if (gameboard.Balls.Count == 0)
                 throw new InvalidOperationException(Resources.ExceptionNoBalls);
 
             List<ActionTreeItem> currentLevelActions = new();
-            IGameboardSnapshot gameboardSnapshot = _gameboard.SaveSnapshot();
+            IGameboardSnapshot gameboardSnapshot = gameboard.SaveSnapshot();
             foreach (var action in actions)
                 currentLevelActions.Add(new ActionTreeItem() { Action = action, GameboardSnapshot = gameboardSnapshot });
-            return DoGetShortestSolution(actions, currentLevelActions);
+            return DoGetShortestSolution(gameboard, actions, currentLevelActions);
         }
 
         /// <summary>
@@ -99,7 +89,7 @@ namespace Aura.GravityFall
         /// <param name="actions"></param>
         /// <param name="currentLevelActions"></param>
         /// <returns></returns>
-        private IList<IAction> DoGetShortestSolution(IEnumerable<IAction> actions, IList<ActionTreeItem> currentLevelActions)
+        private IList<IAction> DoGetShortestSolution(IGameboard gameboard, IEnumerable<IAction> actions, IList<ActionTreeItem> currentLevelActions)
         {
             // No current level actions. It means that there is no possible solution
             if (currentLevelActions.Count == 0)
@@ -110,9 +100,9 @@ namespace Aura.GravityFall
             for (int i = currentLevelActions.Count - 1; i >= 0; i--)
             {
                 // Loading balls positions
-                _gameboard.LoadShapshot(currentLevelActions[i].GameboardSnapshot, true);
+                gameboard.LoadShapshot(currentLevelActions[i].GameboardSnapshot, true);
                 // Executing action
-                var ballsInholes = _gameboard.ApplyAction(currentLevelActions[i].Action);
+                var ballsInholes = gameboard.ApplyAction(currentLevelActions[i].Action);
                 // Checking balls that have fallen to holes
                 bool deadend = false;
                 foreach (var item in ballsInholes)
@@ -130,10 +120,10 @@ namespace Aura.GravityFall
                     continue;
                 }
                 // If no balls left, than we have won
-                if (_gameboard.Balls.Count == 0)
+                if (gameboard.Balls.Count == 0)
                     return GetActionsFromRoot(currentLevelActions[i]);
                 // Checking for gameboard state remained unchanged. If so it is deadend
-                IGameboardSnapshot gameboardSnapshot = _gameboard.SaveSnapshot();
+                IGameboardSnapshot gameboardSnapshot = gameboard.SaveSnapshot();
                 if (gameboardSnapshot.ValueEquals(currentLevelActions[i].GameboardSnapshot))
                 {
                     // Removing current level action
@@ -160,7 +150,7 @@ namespace Aura.GravityFall
                 }
             }
             // Executing next tree level actions
-            return DoGetShortestSolution(actions, nextLevelActions);
+            return DoGetShortestSolution(gameboard, actions, nextLevelActions);
         }
 
         /// <summary>

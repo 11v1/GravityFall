@@ -48,9 +48,24 @@ namespace Aura.GravityFall
         public bool ValueEquals(IGameboardObject other);
     }
 
+    interface IGameboardObjectFactory
+    {
+        IGameboardObject CreateGameboardObject(int number);
+    }
+
     /// <inheritdoc cref="IGameboardSnapshot"/>
     sealed class GameboardObject : IGameboardObject
     {
+
+        /*************************************************************
+         *  Ctors
+        /*************************************************************/
+
+        public GameboardObject(int number)
+        {
+            Number = number;
+        }
+
 
         /*************************************************************
          *  Properties
