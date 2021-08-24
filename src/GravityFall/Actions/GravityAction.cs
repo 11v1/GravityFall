@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Aura.GravityFall.Actions
 {
-
+    /// <summary>
+    /// Base class for actions that modifies gameboard applying gravity effect
+    /// </summary>
     abstract class GravityAction : IAction
     {
 
