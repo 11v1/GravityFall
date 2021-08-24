@@ -259,6 +259,8 @@ namespace Aura.GravityFall.Tests
 
         #endregion
 
+        #region SnapshotTests
+
         [TestMethod()]
         public void SaveSnapshotTest()
         {
@@ -314,17 +316,52 @@ namespace Aura.GravityFall.Tests
             CollectionAssert.AreEqual(new List<IGameboardObject>(gameboard.Balls), new List<IGameboardObject>(snapshot.Balls), new GameObjectComparer());
         }
 
+        #endregion
+
+        #region RemoveBallTests
+
+        [TestMethod()]
+        public void RemoveBallTest()
+        {
+            // arrange
+            Gameboard gameboard = new Gameboard(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 1, Y = 2 },
+                new GameboardObject() { Number = 2, X = 1, Y = 1 }
+            });
+
+            // act
+            gameboard.RemoveBall(1);
+
+            // assert
+            Assert.AreEqual(1, gameboard.Balls.Count);
+        }
+
+        [TestMethod()]
+        public void RemoveBallUnknownIdTest()
+        {
+            // arrange
+            Gameboard gameboard = new Gameboard(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 1, Y = 2 },
+                new GameboardObject() { Number = 2, X = 1, Y = 1 }
+            });
+
+            // act
+
+            // assert
+            Assert.ThrowsException<ArgumentException>(() => gameboard.RemoveBall(3));
+        }
+
+        #endregion
+
         //[TestMethod()]
         //public void SetBallPositionTest()
         //{
         //    Assert.Fail();
         //}
 
-        //[TestMethod()]
-        //public void RemoveBallTest()
-        //{
-        //    Assert.Fail();
-        //}
+
 
         //[TestMethod()]
         //public void ApplyActionTest()
