@@ -88,12 +88,14 @@ namespace Aura.GravityFall
             // Setting gameboard size
             SizeX = xSize;
             SizeY = ySize;
-            // Positioning holes
+            // Validating objects
             ValidateObjects(holes);
+            ValidateObjects(balls);
+            ValidateObjectsPosition(holes.Concat(balls));
+            // Positioning holes
             foreach (var h in holes)
                 _holes.Add(h.Number, h);
             // Positioning balls
-            ValidateObjects(balls);
             foreach (var b in balls)
                 _balls.Add(b.Number, b);
         }
@@ -134,6 +136,7 @@ namespace Aura.GravityFall
         public void LoadShapshot(IGameboardSnapshot snapshot)
         {
             ValidateObjects(snapshot.Balls);
+            ValidateObjectsPosition(Holes.Concat(snapshot.Balls));
             _balls.Clear();
             foreach (var b in snapshot.Balls)
                 _balls.Add(b.Number, b);
@@ -142,7 +145,7 @@ namespace Aura.GravityFall
         public void RemoveBall(int number)
         {
             if (!_balls.ContainsKey(number))
-                throw new ArgumentException(nameof(number));
+                throw new ArgumentException(string.Format(Resources.ExceptionBallNotFound, number));
             _balls.Remove(number);
         }
 
@@ -162,6 +165,10 @@ namespace Aura.GravityFall
             // Checking if object numbers are unique
             if (objects.Select(p => p.Number).Distinct().Count() != objects.Count())
                 throw new ArgumentException(Resources.ExceptionObjectNumberDuplicate);
+        }
+
+        private static void ValidateObjectsPosition(IEnumerable<IGameboardObject> objects)
+        {
             // Checking if objects have unique positions (not place on each other)
             var points = objects.Select(p => (p.X, p.Y));
             if (points.Distinct().Count() != points.Count())

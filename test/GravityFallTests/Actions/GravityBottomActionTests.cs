@@ -12,8 +12,8 @@ namespace Aura.GravityFall.Actions.Tests
     public class GravityBottomActionTests
     {
 
-        private static List<IGameboardObject> TestBalls => new List<IGameboardObject>(_testBalls.Select(p => (IGameboardObject)p.Clone()));
-        private static List<IGameboardObject> _testBalls = new List<IGameboardObject>()
+        private static List<IGameboardObject> TestBalls => new(_testBalls.Select(p => (IGameboardObject)p.Clone()));
+        private static readonly List<IGameboardObject> _testBalls = new()
         {
             new GameboardObject() { Number = 1, X = 0, Y = 0 },
             new GameboardObject() { Number = 2, X = 1, Y = 1 },
@@ -44,8 +44,8 @@ namespace Aura.GravityFall.Actions.Tests
             new GameboardObject() { Number = 27, X = 5, Y = 1 },
         };
 
-        private static List<IGameboardObject> TestHoles => new List<IGameboardObject>(_testHoles.Select(p => (IGameboardObject)p.Clone()));
-        private static List<IGameboardObject> _testHoles = new List<IGameboardObject>()
+        private static List<IGameboardObject> TestHoles => new(_testHoles.Select(p => (IGameboardObject)p.Clone()));
+        private static readonly List<IGameboardObject> _testHoles = new()
         {
             new GameboardObject() { Number = 1, X = 0, Y = 1 },
             new GameboardObject() { Number = 2, X = 1, Y = 2 },
@@ -88,7 +88,7 @@ namespace Aura.GravityFall.Actions.Tests
         public void ApplyActionTest()
         {
             // arrange
-            Gameboard gameboard = new Gameboard(10, 10, TestHoles, TestBalls);
+            Gameboard gameboard = new(10, 10, TestHoles, TestBalls);
 
             // act
             var result = gameboard.ApplyAction(new GravityBottomAction());
@@ -105,26 +105,26 @@ namespace Aura.GravityFall.Actions.Tests
             AssertBall(gameboard, 25, 9, 7);
             // verifying balls that felt
             Assert.AreEqual(20, result.Count());
-            result.First(p => p.HoleNumber == 1 && p.BallNumber == 1);
-            result.First(p => p.HoleNumber == 10 && p.BallNumber == 11);
-            result.First(p => p.HoleNumber == 2 && p.BallNumber == 2);
-            result.First(p => p.HoleNumber == 11 && p.BallNumber == 12);
-            result.First(p => p.HoleNumber == 11 && p.BallNumber == 26);
-            result.First(p => p.HoleNumber == 3 && p.BallNumber == 3);
-            result.First(p => p.HoleNumber == 15 && p.BallNumber == 13);
-            result.First(p => p.HoleNumber == 4 && p.BallNumber == 4);
-            result.First(p => p.HoleNumber == 4 && p.BallNumber == 18);
-            result.First(p => p.HoleNumber == 5 && p.BallNumber == 5);
-            result.First(p => p.HoleNumber == 5 && p.BallNumber == 19);
-            result.First(p => p.HoleNumber == 6 && p.BallNumber == 6);
-            result.First(p => p.HoleNumber == 6 && p.BallNumber == 20);
-            result.First(p => p.HoleNumber == 6 && p.BallNumber == 27);
-            result.First(p => p.HoleNumber == 7 && p.BallNumber == 7);
-            result.First(p => p.HoleNumber == 7 && p.BallNumber == 21);
-            result.First(p => p.HoleNumber == 8 && p.BallNumber == 8);
-            result.First(p => p.HoleNumber == 8 && p.BallNumber == 22);
-            result.First(p => p.HoleNumber == 9 && p.BallNumber == 9);
-            result.First(p => p.HoleNumber == 9 && p.BallNumber == 23);
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 1 && p.BallNumber == 1));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 10 && p.BallNumber == 11));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 2 && p.BallNumber == 2));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 11 && p.BallNumber == 12));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 11 && p.BallNumber == 26));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 3 && p.BallNumber == 3));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 15 && p.BallNumber == 13));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 4 && p.BallNumber == 4));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 4 && p.BallNumber == 18));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 5 && p.BallNumber == 5));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 5 && p.BallNumber == 19));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 6 && p.BallNumber == 6));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 6 && p.BallNumber == 20));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 6 && p.BallNumber == 27));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 7 && p.BallNumber == 7));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 7 && p.BallNumber == 21));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 8 && p.BallNumber == 8));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 8 && p.BallNumber == 22));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 9 && p.BallNumber == 9));
+            Assert.IsNotNull(result.First(p => p.HoleNumber == 9 && p.BallNumber == 23));
         }
     }
 }

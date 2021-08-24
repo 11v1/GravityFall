@@ -61,6 +61,15 @@ namespace Aura.GravityFall {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ball with number = {0} not found.
+        /// </summary>
+        internal static string ExceptionBallNotFound {
+            get {
+                return ResourceManager.GetString("ExceptionBallNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Object&apos;s numbers are not unique.
         /// </summary>
         internal static string ExceptionObjectNumberDuplicate {
