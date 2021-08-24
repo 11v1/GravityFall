@@ -88,6 +88,17 @@ namespace Aura.GravityFall
         public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IAction action);
     }
 
+    /// <summary>
+    /// Abstract fabric for Gameboard creation
+    /// </summary>
+    interface IGameboardFactory
+    {
+        IGameboard CreateGameboard(int sizeX, int sizeY, IEnumerable<IGameboardObject> holes, IEnumerable<IGameboardObject> balls);
+
+        IGameboardSnapshot CreateSnapshot(IEnumerable<IGameboardObject> balls);
+    }
+
+    /// <inheritdoc cref="IGameboard"/>
     class Gameboard : IGameboard
     {
 
@@ -95,11 +106,12 @@ namespace Aura.GravityFall
          *  Ctors
         /*************************************************************/
 
-        public Gameboard(int xSize, int ySize, IEnumerable<IGameboardObject> holes, IEnumerable<IGameboardObject> balls)
+        public Gameboard(IGameboardFactory factory, int sizeX, int sizeY, IEnumerable<IGameboardObject> holes, IEnumerable<IGameboardObject> balls)
         {
+            _factory = factory;
             // Setting gameboard size
-            SizeX = xSize;
-            SizeY = ySize;
+            SizeX = sizeX;
+            SizeY = sizeY;
             // Validating objects
             ValidateObjects(holes);
             ValidateObjects(balls);
@@ -111,6 +123,13 @@ namespace Aura.GravityFall
             foreach (var b in balls)
                 _balls.Add(b.Number, b);
         }
+
+
+        /*************************************************************
+         *  Fields
+        /*************************************************************/
+
+        private readonly IGameboardFactory _factory;
 
 
         /*************************************************************
@@ -142,7 +161,7 @@ namespace Aura.GravityFall
 
         public IGameboardSnapshot SaveSnapshot()
         {
-            return new GameboardSnapshot(Balls);
+            return _factory.CreateSnapshot(Balls);
         }
 
         public void LoadShapshot(IGameboardSnapshot snapshot, bool skipValidation = false)

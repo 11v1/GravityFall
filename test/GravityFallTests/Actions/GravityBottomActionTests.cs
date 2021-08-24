@@ -88,7 +88,7 @@ namespace Aura.GravityFall.Actions.Tests
         public void ApplyActionTest()
         {
             // arrange
-            Gameboard gameboard = new(10, 10, TestHoles, TestBalls);
+            Gameboard gameboard = new(null, 10, 10, TestHoles, TestBalls);
 
             // act
             var result = gameboard.ApplyAction(new GravityBottomAction());

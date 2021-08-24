@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using Aura.GravityFall.Actions;
+using Ninject;
+using Ninject.Extensions.Factory;
 
 namespace Aura.GravityFall.Tests
 {
@@ -38,7 +40,7 @@ namespace Aura.GravityFall.Tests
             // act
 
             // assert
-            _ = new Gameboard(2, 2, new List<IGameboardObject>(), new List<IGameboardObject>());
+            _ = new Gameboard(null, 2, 2, new List<IGameboardObject>(), new List<IGameboardObject>());
         }
 
         [TestMethod()]
@@ -49,7 +51,7 @@ namespace Aura.GravityFall.Tests
             // act
 
             // assert
-            _ = new Gameboard(2, 2, new List<IGameboardObject>()
+            _ = new Gameboard(null, 2, 2, new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 1, Y = 1 }
             }, new List<IGameboardObject>());
@@ -63,7 +65,7 @@ namespace Aura.GravityFall.Tests
             // act
 
             // assert
-            _ = new Gameboard(2, 2, new List<IGameboardObject>()
+            _ = new Gameboard(null, 2, 2, new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 0, Y = 1 },
                 new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -80,7 +82,7 @@ namespace Aura.GravityFall.Tests
             // assert
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                Gameboard gameboard = new(2, 2, new List<IGameboardObject>()
+                Gameboard gameboard = new(null, 2, 2, new List<IGameboardObject>()
                 {
                     new GameboardObject() { Number = 1, X = 0, Y = 1 },
                     new GameboardObject() { Number = 1, X = 1, Y = 1 }
@@ -98,7 +100,7 @@ namespace Aura.GravityFall.Tests
             // assert
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                Gameboard gameboard = new(2, 2, new List<IGameboardObject>()
+                Gameboard gameboard = new(null, 2, 2, new List<IGameboardObject>()
                 {
                     new GameboardObject() { Number = 1, X = 1, Y = 1 },
                     new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -116,7 +118,7 @@ namespace Aura.GravityFall.Tests
             // assert
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
             {
-                Gameboard gameboard = new(2, 2, new List<IGameboardObject>()
+                Gameboard gameboard = new(null, 2, 2, new List<IGameboardObject>()
                 {
                     new GameboardObject() { Number = 1, X = 1, Y = 1 },
                     new GameboardObject() { Number = 2, X = 2, Y = 1 }
@@ -134,7 +136,7 @@ namespace Aura.GravityFall.Tests
             // assert
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
             {
-                Gameboard gameboard = new(2, 2, new List<IGameboardObject>()
+                Gameboard gameboard = new(null, 2, 2, new List<IGameboardObject>()
                 {
                     new GameboardObject() { Number = 1, X = 1, Y = 2 },
                     new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -154,7 +156,7 @@ namespace Aura.GravityFall.Tests
             // act
 
             // assert
-            _ = new Gameboard(2, 2, new List<IGameboardObject>(), new List<IGameboardObject>());
+            _ = new Gameboard(null, 2, 2, new List<IGameboardObject>(), new List<IGameboardObject>());
         }
 
         [TestMethod()]
@@ -165,7 +167,7 @@ namespace Aura.GravityFall.Tests
             // act
 
             // assert
-            _ = new Gameboard(2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
+            _ = new Gameboard(null, 2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 1, Y = 1 }
             });
@@ -179,7 +181,7 @@ namespace Aura.GravityFall.Tests
             // act
 
             // assert
-            _ = new Gameboard(2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
+            _ = new Gameboard(null, 2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 0, Y = 1 },
                 new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -196,7 +198,7 @@ namespace Aura.GravityFall.Tests
             // assert
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                Gameboard gameboard = new(2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
+                Gameboard gameboard = new(null, 2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
                 {
                     new GameboardObject() { Number = 1, X = 0, Y = 1 },
                     new GameboardObject() { Number = 1, X = 1, Y = 1 }
@@ -214,7 +216,7 @@ namespace Aura.GravityFall.Tests
             // assert
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                Gameboard gameboard = new(2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
+                Gameboard gameboard = new(null, 2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
                 {
                     new GameboardObject() { Number = 1, X = 1, Y = 1 },
                     new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -232,7 +234,7 @@ namespace Aura.GravityFall.Tests
             // assert
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
             {
-                Gameboard gameboard = new(2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
+                Gameboard gameboard = new(null, 2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
                 {
                     new GameboardObject() { Number = 1, X = 1, Y = 1 },
                     new GameboardObject() { Number = 2, X = 2, Y = 1 }
@@ -250,7 +252,7 @@ namespace Aura.GravityFall.Tests
             // assert
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
             {
-                Gameboard gameboard = new(2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
+                Gameboard gameboard = new(null, 2, 2, new List<IGameboardObject>(), new List<IGameboardObject>()
                 {
                     new GameboardObject() { Number = 1, X = 1, Y = 2 },
                     new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -272,7 +274,7 @@ namespace Aura.GravityFall.Tests
             // assert
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                Gameboard gameboard = new(20, 20, new List<IGameboardObject>()
+                Gameboard gameboard = new(null, 20, 20, new List<IGameboardObject>()
                 {
                     new GameboardObject() { Number = 1, X = 1, Y = 2 },
                     new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -292,7 +294,12 @@ namespace Aura.GravityFall.Tests
         public void SaveSnapshotTest()
         {
             // arrange
-            Gameboard gameboard = new(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 1, Y = 2 },
                 new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -310,7 +317,12 @@ namespace Aura.GravityFall.Tests
         public void SaveSnapshotIsImmutableTest()
         {
             // arrange
-            Gameboard gameboard = new(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 1, Y = 2 },
                 new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -328,7 +340,12 @@ namespace Aura.GravityFall.Tests
         public void LoadSnapshotTest()
         {
             // arrange
-            Gameboard gameboard = new(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 1, Y = 2 },
                 new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -351,7 +368,7 @@ namespace Aura.GravityFall.Tests
         public void RemoveBallTest()
         {
             // arrange
-            Gameboard gameboard = new(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            Gameboard gameboard = new(null, 10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 1, Y = 2 },
                 new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -368,7 +385,7 @@ namespace Aura.GravityFall.Tests
         public void RemoveBallUnknownIdTest()
         {
             // arrange
-            Gameboard gameboard = new(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            Gameboard gameboard = new(null, 10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 1, Y = 2 },
                 new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -415,7 +432,7 @@ namespace Aura.GravityFall.Tests
         public void ApplyActionModifyBallsTest()
         {
             // arrange
-            Gameboard gameboard = new(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            Gameboard gameboard = new(null, 10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 1, Y = 2 },
                 new GameboardObject() { Number = 2, X = 1, Y = 1 }
@@ -434,7 +451,7 @@ namespace Aura.GravityFall.Tests
         public void ApplyActionBallToHoleTest()
         {
             // arrange
-            Gameboard gameboard = new(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            Gameboard gameboard = new(null, 10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 1, Y = 2 },
                 new GameboardObject() { Number = 2, X = 1, Y = 1 }

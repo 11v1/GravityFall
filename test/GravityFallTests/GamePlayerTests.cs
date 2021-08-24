@@ -16,7 +16,7 @@ namespace Aura.GravityFall.Tests
         public void GameNoHolesTest()
         {
             // arrange
-            Gameboard gameboard = new(10, 10, new List<GameboardObject>()
+            Gameboard gameboard = new(null, 10, 10, new List<GameboardObject>()
             {
 
             }, new List<GameboardObject>()
@@ -41,7 +41,7 @@ namespace Aura.GravityFall.Tests
         public void GameNoBallsTest()
         {
             // arrange
-            Gameboard gameboard = new(10, 10, new List<GameboardObject>()
+            Gameboard gameboard = new(null, 10, 10, new List<GameboardObject>()
             {
                 new GameboardObject() { Number = 1, X = 1, Y = 1 }
             }, new List<GameboardObject>()
