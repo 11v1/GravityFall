@@ -201,6 +201,10 @@ namespace Aura.GravityFall
                 throw new ArgumentException(Resources.ExceptionObjectNumberDuplicate);
         }
 
+        /// <summary>
+        /// Validates that object positions are unique (not overlapping)
+        /// </summary>
+        /// <param name="objects"></param>
         private static void ValidateObjectsPosition(IEnumerable<IGameboardObject> objects)
         {
             // Checking if objects have unique positions (not place on each other)
