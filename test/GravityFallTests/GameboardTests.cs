@@ -260,6 +260,32 @@ namespace Aura.GravityFall.Tests
 
         #endregion
 
+        #region ValidatePositionTests
+
+        [TestMethod()]
+        public void GameboardNotValidBallsHallsPositionTest()
+        {
+            // arrange
+
+            // act
+
+            // assert
+            Assert.ThrowsException<ArgumentException>(() =>
+            {
+                Gameboard gameboard = new(20, 20, new List<IGameboardObject>()
+                {
+                    new GameboardObject() { Number = 1, X = 1, Y = 2 },
+                    new GameboardObject() { Number = 2, X = 1, Y = 1 }
+                }, new List<IGameboardObject>()
+                {
+                    new GameboardObject() { Number = 1, X = 3, Y = 4 },
+                    new GameboardObject() { Number = 2, X = 1, Y = 1 }
+                });
+            });
+        }
+
+        #endregion
+
         #region SnapshotTests
 
         [TestMethod()]
