@@ -11,10 +11,20 @@ namespace Aura.GravityFall
     /// </summary>
     interface IGameboardSnapshot
     {
+
+        /*************************************************************
+         *  Properties
+        /*************************************************************/
+
         /// <summary>
         /// Balls positions
         /// </summary>
         public IReadOnlyCollection<IGameboardObject> Balls { get; }
+
+
+        /*************************************************************
+         *  Methods
+        /*************************************************************/
 
         /// <summary>
         /// Compares this instance values to other
@@ -31,14 +41,29 @@ namespace Aura.GravityFall
     /// <inheritdoc cref="IGameboardSnapshot"/>
     sealed class GameboardSnapshot : IGameboardSnapshot
     {
+
+        /*************************************************************
+         *  Ctors
+        /*************************************************************/
+
         public GameboardSnapshot(IEnumerable<IGameboardObject> balls)
         {
             foreach (var ball in balls)
                 _balls.Add((IGameboardObject)ball.Clone());
         }
 
+
+        /*************************************************************
+         *  Properties
+        /*************************************************************/
+
         public IReadOnlyCollection<IGameboardObject> Balls => _balls.AsReadOnly();
         private readonly List<IGameboardObject> _balls = new();
+
+
+        /*************************************************************
+         *  Methods
+        /*************************************************************/
 
         public bool ValueEquals(IGameboardSnapshot other)
         {

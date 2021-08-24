@@ -9,6 +9,10 @@ namespace Aura.GravityFall.Actions
     class GravityTopAction : GravityAction
     {
 
+        /*************************************************************
+         *  Methods
+        /*************************************************************/
+
         protected override IEnumerable<IGameboardObject> GetBallsOrderedFromGravitySide(IGameboard gameboard) =>
             gameboard.Balls.OrderBy(p => p.Y);
 

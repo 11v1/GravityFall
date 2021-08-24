@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 namespace Aura.GravityFall
 {
-
     /// <summary>
     /// Plays the game
     /// </summary>
     interface IGamePlayer
     {
+
+        /*************************************************************
+         *  Methods
+        /*************************************************************/
+
         /// <summary>
         /// Performs set of actions to get shortest actions sequence to archive game goal
         /// </summary>
@@ -24,6 +28,10 @@ namespace Aura.GravityFall
     /// <inheritdoc cref="IGamePlayer"/>
     class GamePlayer : IGamePlayer
     {
+
+        /*************************************************************
+         *  Types
+        /*************************************************************/
 
         /// <summary>
         /// Item to build actions tree
@@ -46,19 +54,30 @@ namespace Aura.GravityFall
             public IGameboardSnapshot GameboardSnapshot { get; init; }
         }
 
-        /// <summary>
-        /// Ctor
-        /// </summary>
-        /// <param name="gameboard"></param>
+
+        /*************************************************************
+         *  Ctors
+        /*************************************************************/
+
         public GamePlayer(IGameboard gameboard)
         {
             _gameboard = gameboard;
         }
 
+
+        /*************************************************************
+         *  Fields
+        /*************************************************************/
+
         /// <summary>
         /// Gameboard to be played
         /// </summary>
         private readonly IGameboard _gameboard;
+
+
+        /*************************************************************
+         *  Methods
+        /*************************************************************/
 
         public IList<IAction> GetShortestSolution(IEnumerable<IAction> actions)
         {
@@ -69,6 +88,12 @@ namespace Aura.GravityFall
             return DoGetShortestSolutition(actions, currentLevelActions);
         }
 
+        /// <summary>
+        /// Performs recursive actions in search of shortest solution
+        /// </summary>
+        /// <param name="actions"></param>
+        /// <param name="currentLevelActions"></param>
+        /// <returns></returns>
         private IList<IAction> DoGetShortestSolutition(IEnumerable<IAction> actions, IList<ActionTreeItem> currentLevelActions)
         {
             // No current level actions. It means that there is no possible solution

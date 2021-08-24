@@ -11,6 +11,11 @@ namespace Aura.GravityFall
     /// </summary>
     interface IGameboardObject : ICloneable
     {
+
+        /*************************************************************
+         *  Properties
+        /*************************************************************/
+
         /// <summary>
         /// X coordinate
         /// </summary>
@@ -25,6 +30,11 @@ namespace Aura.GravityFall
         /// Object number
         /// </summary>
         public int Number { get; init; }
+
+
+        /*************************************************************
+         *  Methods
+        /*************************************************************/
 
         /// <summary>
         /// Compares this instance values to other
@@ -41,11 +51,21 @@ namespace Aura.GravityFall
     /// <inheritdoc cref="IGameboardSnapshot"/>
     sealed class GameboardObject : IGameboardObject
     {
+
+        /*************************************************************
+         *  Properties
+        /*************************************************************/
+
         public int X { get; set; }
 
         public int Y { get; set; }
 
         public int Number { get; init; }
+
+
+        /*************************************************************
+         *  Methods
+        /*************************************************************/
 
         public object Clone()
         {

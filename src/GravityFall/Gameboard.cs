@@ -9,6 +9,11 @@ namespace Aura.GravityFall
 {
     interface IGameboard
     {
+
+        /*************************************************************
+         *  Properties
+        /*************************************************************/
+
         /// <summary>
         /// Cells number in X direction
         /// </summary>
@@ -48,6 +53,11 @@ namespace Aura.GravityFall
         /// Balls positioned on the gameboard
         /// </summary>
         public IReadOnlyCollection<IGameboardObject> Balls { get; }
+
+
+        /*************************************************************
+         *  Methods
+        /*************************************************************/
 
         /// <summary>
         /// Saves gameboard state

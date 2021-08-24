@@ -12,6 +12,10 @@ namespace Aura.GravityFall.Actions
     abstract class GravityAction : IAction
     {
 
+        /*************************************************************
+         *  Methods
+        /*************************************************************/
+
         public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IGameboard gameboard)
         {
             List<(int HoleNumber, int BallNumber)> result = new();
