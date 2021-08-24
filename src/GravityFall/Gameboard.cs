@@ -72,7 +72,7 @@ namespace Aura.GravityFall
         /// Action can (or should) modify gameboard
         /// </summary>
         /// <param name="action"></param>
-        /// <returns></returns>
+        /// <returns>Returns list of hole-ball pairs for balls that felt in some hole</returns>
         public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IAction action);
     }
 

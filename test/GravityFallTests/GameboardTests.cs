@@ -358,7 +358,7 @@ namespace Aura.GravityFall.Tests
 
         #region ApplyActionTests
 
-        private class TestModifyPointsAction : IAction
+        private class TestModifyBallsAction : IAction
         {
             public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IGameboard gameboard)
             {
@@ -372,9 +372,21 @@ namespace Aura.GravityFall.Tests
             }
         }
 
+        private class TestBallToHoleAction : IAction
+        {
+            public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IGameboard gameboard)
+            {
+                gameboard.RemoveBall(1);
+                return new List<(int HoleNumber, int BallNumber)>()
+                {
+                    (1, 1),
+                };
+            }
+        }
+
 
         [TestMethod()]
-        public void ApplyActionModifyPointsTest()
+        public void ApplyActionModifyBallsTest()
         {
             // arrange
             Gameboard gameboard = new Gameboard(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
@@ -384,7 +396,7 @@ namespace Aura.GravityFall.Tests
             });
 
             // act
-            var result = gameboard.ApplyAction(new TestModifyPointsAction());
+            var result = gameboard.ApplyAction(new TestModifyBallsAction());
 
             // assert
             Assert.IsNull(result);
@@ -392,15 +404,25 @@ namespace Aura.GravityFall.Tests
             Assert.AreEqual(7, gameboard.Balls.First(p => p.Number == 2).Y);
         }
 
+        [TestMethod()]
+        public void ApplyActionBallToHoleTest()
+        {
+            // arrange
+            Gameboard gameboard = new Gameboard(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 1, Y = 2 },
+                new GameboardObject() { Number = 2, X = 1, Y = 1 }
+            });
+
+            // act
+            var result = gameboard.ApplyAction(new TestBallToHoleAction());
+
+            // assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Count());
+        }
+
         #endregion
-
-        //[TestMethod()]
-        //public void SetBallPositionTest()
-        //{
-        //    Assert.Fail();
-        //}
-
-
 
 
     }
