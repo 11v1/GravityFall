@@ -33,13 +33,13 @@ namespace Aura.GravityFall
         /// Saves gameboard state
         /// </summary>
         /// <returns></returns>
-        public IGameboardSnapshot Save();
+        public IGameboardSnapshot SaveSnapshot();
 
         /// <summary>
         /// Loads gameboard state
         /// </summary>
         /// <returns></returns>
-        public void Load(IGameboardSnapshot snapshot);
+        public void LoadShapshot(IGameboardSnapshot snapshot);
 
         /// <summary>
         /// Modifies ball's position
@@ -64,9 +64,6 @@ namespace Aura.GravityFall
         public IEnumerable<(uint HoleNumber, uint BallNumber)> ApplyAction(IAction action);
     }
 
-    /// <summary>
-    ///
-    /// </summary>
     class Gameboard : IGameboard
     {
 
@@ -109,12 +106,12 @@ namespace Aura.GravityFall
          *  Methods
         /*************************************************************/
 
-        public IGameboardSnapshot Save()
+        public IGameboardSnapshot SaveSnapshot()
         {
             return new GameboardSnapshot(Balls);
         }
 
-        public void Load(IGameboardSnapshot snapshot)
+        public void LoadShapshot(IGameboardSnapshot snapshot)
         {
             ValidateObjects(snapshot.Balls);
             _balls.Clear();
@@ -147,12 +144,17 @@ namespace Aura.GravityFall
         /// <param name="objects"></param>
         private void ValidateObjects(IEnumerable<IGameboardObject> objects)
         {
-            // Checking that object x and y coordinate do not exceeds gameboard size
-            if (objects.Any(p => p.X >= XSize || p.Y >= YSize))
-                throw new ArgumentOutOfRangeException();
-            // Checking that object numbers are unique
+            // Checking if object x and y coordinate do not exceeds gameboard size
+            var objectOutOfBounds = objects.FirstOrDefault(p => p.X >= XSize || p.Y >= YSize);
+            if (objectOutOfBounds != null)
+                throw new ArgumentOutOfRangeException(string.Format(Resources.ExceptionObjectPositionOutOfBoard, objectOutOfBounds.X, objectOutOfBounds.Y, 0, XSize - 1, 0, YSize - 1));
+            // Checking if object numbers are unique
             if (objects.Select(p => p.Number).Distinct().Count() != objects.Count())
-                throw new ArgumentException();
+                throw new ArgumentException(Resources.ExceptionObjectNumberDuplicate);
+            // Checking if objects have unique positions (not place on each other)
+            var points = objects.Select(p => (p.X, p.Y));
+            if (points.Distinct().Count() != points.Count())
+                throw new ArgumentException(Resources.ExceptionObjectPositionDuplicate);
         }
     }
 }
