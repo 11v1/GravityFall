@@ -132,7 +132,7 @@ namespace Aura.GravityFall
                 // If no balls left, than we have won
                 if (_gameboard.Balls.Count == 0)
                     return GetActionsFromRoot(currentLevelActions[i]);
-                // Checking is gameboard state remained unchanged. If so it is deadend
+                // Checking for gameboard state remained unchanged. If so it is deadend
                 IGameboardSnapshot gameboardSnapshot = _gameboard.SaveSnapshot();
                 if (gameboardSnapshot.ValueEquals(currentLevelActions[i].GameboardSnapshot))
                 {
