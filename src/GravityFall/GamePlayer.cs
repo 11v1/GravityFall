@@ -81,11 +81,16 @@ namespace Aura.GravityFall
 
         public IList<IAction> GetShortestSolution(IEnumerable<IAction> actions)
         {
+            if (_gameboard.Holes.Count == 0)
+                throw new InvalidOperationException(Resources.ExceptionNoHoles);
+            if (_gameboard.Balls.Count == 0)
+                throw new InvalidOperationException(Resources.ExceptionNoBalls);
+
             List<ActionTreeItem> currentLevelActions = new();
             IGameboardSnapshot gameboardSnapshot = _gameboard.SaveSnapshot();
             foreach (var action in actions)
                 currentLevelActions.Add(new ActionTreeItem() { Action = action, GameboardSnapshot = gameboardSnapshot });
-            return DoGetShortestSolutition(actions, currentLevelActions);
+            return DoGetShortestSolution(actions, currentLevelActions);
         }
 
         /// <summary>
@@ -94,7 +99,7 @@ namespace Aura.GravityFall
         /// <param name="actions"></param>
         /// <param name="currentLevelActions"></param>
         /// <returns></returns>
-        private IList<IAction> DoGetShortestSolutition(IEnumerable<IAction> actions, IList<ActionTreeItem> currentLevelActions)
+        private IList<IAction> DoGetShortestSolution(IEnumerable<IAction> actions, IList<ActionTreeItem> currentLevelActions)
         {
             // No current level actions. It means that there is no possible solution
             if (currentLevelActions.Count == 0)
@@ -143,6 +148,7 @@ namespace Aura.GravityFall
                 // Not won nor lost, preparing next tree level actions
                 foreach (var action in actions)
                 {
+                    // Skipping current action type for next level
                     if (action == currentLevelActions[i].Action)
                         continue;
                     nextLevelActions.Add(new ActionTreeItem()
@@ -154,7 +160,7 @@ namespace Aura.GravityFall
                 }
             }
             // Executing next tree level actions
-            return DoGetShortestSolutition(actions, nextLevelActions);
+            return DoGetShortestSolution(actions, nextLevelActions);
         }
 
         /// <summary>

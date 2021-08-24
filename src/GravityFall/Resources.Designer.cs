@@ -70,6 +70,24 @@ namespace Aura.GravityFall {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gameboard contains no balls. Playing is impossible.
+        /// </summary>
+        internal static string ExceptionNoBalls {
+            get {
+                return ResourceManager.GetString("ExceptionNoBalls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gameboard contains no holes. Playing is impossible.
+        /// </summary>
+        internal static string ExceptionNoHoles {
+            get {
+                return ResourceManager.GetString("ExceptionNoHoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Object&apos;s numbers are not unique.
         /// </summary>
         internal static string ExceptionObjectNumberDuplicate {

@@ -120,6 +120,12 @@
   <data name="ExceptionBallNotFound" xml:space="preserve">
     <value>Ball with number = {0} not found</value>
   </data>
+  <data name="ExceptionNoBalls" xml:space="preserve">
+    <value>Gameboard contains no balls. Playing is impossible</value>
+  </data>
+  <data name="ExceptionNoHoles" xml:space="preserve">
+    <value>Gameboard contains no holes. Playing is impossible</value>
+  </data>
   <data name="ExceptionObjectNumberDuplicate" xml:space="preserve">
     <value>Object's numbers are not unique</value>
   </data>
