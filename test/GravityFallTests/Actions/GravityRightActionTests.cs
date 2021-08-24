@@ -109,7 +109,7 @@ namespace Aura.GravityFall.Actions.Tests
             AssertBall(gameboard, 9, 9, 8);
             AssertBall(gameboard, 10, 9, 9);
 
-            // verifying balls that felt
+            // verifying balls that have fallen
             Assert.AreEqual(15, result.Count());
             Assert.IsNotNull(result.First(p => p.HoleNumber == 19 && p.BallNumber == 1));
             Assert.IsNotNull(result.First(p => p.HoleNumber == 19 && p.BallNumber == 18));
