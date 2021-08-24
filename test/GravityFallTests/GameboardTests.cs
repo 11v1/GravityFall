@@ -5,12 +5,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace Aura.GravityFall.Tests
 {
     [TestClass()]
     public class GameboardTests
     {
+
+        private class GameObjectComparer : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                IGameboardObject xx = (IGameboardObject)x;
+                IGameboardObject yy = (IGameboardObject)y;
+                if (xx.Number == yy.Number && xx.X == yy.X && xx.Y == yy.Y)
+                    return 0;
+                // in other case we should determine which is predecessor but it's doesn't matter in our case
+                return -1;
+            }
+        }
+
 
         #region ValidHolesTests
 
@@ -258,7 +273,8 @@ namespace Aura.GravityFall.Tests
             var snapshot = gameboard.SaveSnapshot();
 
             // assert
-            CollectionAssert.AreEqual(new List<IGameboardObject>(gameboard.Balls), new List<IGameboardObject>(snapshot.Balls));
+            Assert.AreEqual(gameboard.Balls.Count, snapshot.Balls.Count);
+            CollectionAssert.AreEqual(new List<IGameboardObject>(gameboard.Balls), new List<IGameboardObject>(snapshot.Balls), new GameObjectComparer());
         }
 
         [TestMethod()]
@@ -273,17 +289,30 @@ namespace Aura.GravityFall.Tests
 
             // act
             var snapshot = gameboard.SaveSnapshot();
-            gameboard.SetBallPosition(1, 5, 5);
+            gameboard.Balls.First().X = 5;
 
             // assert
-            CollectionAssert.AreNotEqual(new List<IGameboardObject>(gameboard.Balls), new List<IGameboardObject>(snapshot.Balls));
+            CollectionAssert.AreNotEqual(new List<IGameboardObject>(gameboard.Balls), new List<IGameboardObject>(snapshot.Balls), new GameObjectComparer());
         }
 
-        //[TestMethod()]
-        //public void LoadTest()
-        //{
-        //    Assert.Fail();
-        //}
+        [TestMethod()]
+        public void LoadSnapshotTest()
+        {
+            // arrange
+            Gameboard gameboard = new Gameboard(10, 10, new List<IGameboardObject>(), new List<IGameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 1, Y = 2 },
+                new GameboardObject() { Number = 2, X = 1, Y = 1 }
+            });
+
+            // act
+            var snapshot = gameboard.SaveSnapshot();
+            gameboard.Balls.First().X = 5;
+            gameboard.LoadShapshot(snapshot);
+
+            // assert
+            CollectionAssert.AreEqual(new List<IGameboardObject>(gameboard.Balls), new List<IGameboardObject>(snapshot.Balls), new GameObjectComparer());
+        }
 
         //[TestMethod()]
         //public void SetBallPositionTest()

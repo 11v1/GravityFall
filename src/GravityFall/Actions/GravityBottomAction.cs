@@ -16,6 +16,6 @@ namespace Aura.GravityFall.Actions
             gameboardObjects.Where(p => p.X == @object.X).Where(p => p.Y > @object.Y).OrderBy(p => p.X).FirstOrDefault();
 
         protected override void FellBallToGravitySide(IGameboard gameboard, IGameboardObject ball, IGameboardObject surfaceBall) =>
-            gameboard.SetBallPosition(ball.Number, ball.X, surfaceBall == null ? 0 : surfaceBall.Y - 1);
+            ball.Y = surfaceBall == null ? gameboard.MaxY : surfaceBall.Y - 1;
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aura.GravityFall
 {
-    interface IGameboardObject
+    interface IGameboardObject : ICloneable
     {
         /// <summary>
         /// X coordinate
@@ -24,7 +24,7 @@ namespace Aura.GravityFall
         public uint Number { get; init; }
     }
 
-    struct GameboardObject : IGameboardObject, IEquatable<GameboardObject>
+    class GameboardObject : IGameboardObject
     {
         public uint X { get; set; }
 
@@ -32,31 +32,9 @@ namespace Aura.GravityFall
 
         public uint Number { get; init; }
 
-        public override bool Equals(object obj)
+        public object Clone()
         {
-            return obj is GameboardObject @object && Equals(@object);
-        }
-
-        public bool Equals(GameboardObject other)
-        {
-            return X == other.X &&
-                   Y == other.Y &&
-                   Number == other.Number;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(X, Y, Number);
-        }
-
-        public static bool operator ==(GameboardObject left, GameboardObject right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(GameboardObject left, GameboardObject right)
-        {
-            return !(left == right);
+            return MemberwiseClone();
         }
     }
 }

@@ -12,12 +12,32 @@ namespace Aura.GravityFall
         /// <summary>
         /// Cells number in X direction
         /// </summary>
-        public uint XSize { get; }
+        public uint SizeX { get; }
+
+        /// <summary>
+        /// Minimum X value bound
+        /// </summary>
+        public uint MinX { get; }
+
+        /// <summary>
+        /// Maximum X value bound
+        /// </summary>
+        public uint MaxX { get; }
 
         /// <summary>
         /// Cells number in Y direction
         /// </summary>
-        public uint YSize { get; }
+        public uint SizeY { get; }
+
+        /// <summary>
+        /// Minimum Y value bound
+        /// </summary>
+        public uint MinY { get; }
+
+        /// <summary>
+        /// Maximum Y value bound
+        /// </summary>
+        public uint MaxY { get; }
 
         /// <summary>
         /// Holes positioned on the gameboard
@@ -40,14 +60,6 @@ namespace Aura.GravityFall
         /// </summary>
         /// <returns></returns>
         public void LoadShapshot(IGameboardSnapshot snapshot);
-
-        /// <summary>
-        /// Modifies ball's position
-        /// </summary>
-        /// <param name="number"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        public void SetBallPosition(uint number, uint x, uint y);
 
         /// <summary>
         /// Removes ball from gameboard
@@ -74,8 +86,8 @@ namespace Aura.GravityFall
         public Gameboard(uint xSize, uint ySize, IEnumerable<IGameboardObject> holes, IEnumerable<IGameboardObject> balls)
         {
             // Setting gameboard size
-            XSize = xSize;
-            YSize = ySize;
+            SizeX = xSize;
+            SizeY = ySize;
             // Positioning holes
             ValidateObjects(holes);
             foreach (var h in holes)
@@ -91,9 +103,17 @@ namespace Aura.GravityFall
          *  Properties
         /*************************************************************/
 
-        public uint XSize { get; }
+        public uint SizeX { get; }
 
-        public uint YSize { get; }
+        public uint MinX => 0;
+
+        public uint MaxX => SizeX - 1;
+
+        public uint SizeY { get; }
+
+        public uint MinY => 0;
+
+        public uint MaxY => SizeY - 1;
 
         public IReadOnlyCollection<IGameboardObject> Holes => _holes.Values;
         private readonly Dictionary<uint, IGameboardObject> _holes = new();
@@ -119,15 +139,6 @@ namespace Aura.GravityFall
                 _balls.Add(b.Number, b);
         }
 
-        public void SetBallPosition(uint number, uint x, uint y)
-        {
-            if (!_balls.TryGetValue(number, out var ball))
-                throw new ArgumentException(nameof(number));
-            ball.X = x;
-            ball.Y = y;
-            _balls[number] = ball;
-        }
-
         public void RemoveBall(uint number)
         {
             if (!_balls.ContainsKey(number))
@@ -145,9 +156,9 @@ namespace Aura.GravityFall
         private void ValidateObjects(IEnumerable<IGameboardObject> objects)
         {
             // Checking if object x and y coordinate do not exceeds gameboard size
-            var objectOutOfBounds = objects.FirstOrDefault(p => p.X >= XSize || p.Y >= YSize);
+            var objectOutOfBounds = objects.FirstOrDefault(p => p.X < MinX || p.X > MaxX || p.Y < MinY || p.Y > MaxY);
             if (objectOutOfBounds != null)
-                throw new ArgumentOutOfRangeException(string.Format(Resources.ExceptionObjectPositionOutOfBoard, objectOutOfBounds.X, objectOutOfBounds.Y, 0, XSize - 1, 0, YSize - 1));
+                throw new ArgumentOutOfRangeException(string.Format(Resources.ExceptionObjectPositionOutOfBoard, objectOutOfBounds.X, objectOutOfBounds.Y, MinX, MaxX, MinY, MaxY));
             // Checking if object numbers are unique
             if (objects.Select(p => p.Number).Distinct().Count() != objects.Count())
                 throw new ArgumentException(Resources.ExceptionObjectNumberDuplicate);

@@ -23,10 +23,11 @@ namespace Aura.GravityFall
     {
         public GameboardSnapshot(IEnumerable<IGameboardObject> balls)
         {
-            _balls = new(balls);
+            foreach (var ball in balls)
+                _balls.Add((IGameboardObject)ball.Clone());
         }
 
         public IReadOnlyCollection<IGameboardObject> Balls => _balls.AsReadOnly();
-        private readonly List<IGameboardObject> _balls;
+        private readonly List<IGameboardObject> _balls = new();
     }
 }
