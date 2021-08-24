@@ -360,7 +360,7 @@ namespace Aura.GravityFall.Tests
 
         private class TestModifyPointsAction : IAction
         {
-            public IEnumerable<(uint HoleNumber, uint BallNumber)> ApplyAction(IGameboard gameboard)
+            public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IGameboard gameboard)
             {
                 var ball = gameboard.Balls.First(p => p.Number == 1);
                 ball.X = 5;
@@ -388,8 +388,8 @@ namespace Aura.GravityFall.Tests
 
             // assert
             Assert.IsNull(result);
-            Assert.AreEqual((uint)5, gameboard.Balls.First(p => p.Number == 1).X);
-            Assert.AreEqual((uint)7, gameboard.Balls.First(p => p.Number == 2).Y);
+            Assert.AreEqual(5, gameboard.Balls.First(p => p.Number == 1).X);
+            Assert.AreEqual(7, gameboard.Balls.First(p => p.Number == 2).Y);
         }
 
         #endregion

@@ -11,26 +11,26 @@ namespace Aura.GravityFall
         /// <summary>
         /// X coordinate
         /// </summary>
-        public uint X { get; set; }
+        public int X { get; set; }
 
         /// <summary>
         /// Y coordinates
         /// </summary>
-        public uint Y { get; set; }
+        public int Y { get; set; }
 
         /// <summary>
         /// Object number
         /// </summary>
-        public uint Number { get; init; }
+        public int Number { get; init; }
     }
 
     class GameboardObject : IGameboardObject
     {
-        public uint X { get; set; }
+        public int X { get; set; }
 
-        public uint Y { get; set; }
+        public int Y { get; set; }
 
-        public uint Number { get; init; }
+        public int Number { get; init; }
 
         public object Clone()
         {

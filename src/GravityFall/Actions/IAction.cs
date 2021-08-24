@@ -13,6 +13,6 @@ namespace Aura.GravityFall.Actions
         /// </summary>
         /// <param name="gameboard"></param>
         /// <returns></returns>
-        public IEnumerable<(uint HoleNumber, uint BallNumber)> ApplyAction(IGameboard gameboard);
+        public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IGameboard gameboard);
     }
 }

@@ -10,9 +10,9 @@ namespace Aura.GravityFall.Actions
     abstract class GravityAction : IAction
     {
 
-        public IEnumerable<(uint HoleNumber, uint BallNumber)> ApplyAction(IGameboard gameboard)
+        public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IGameboard gameboard)
         {
-            List<(uint HoleNumber, uint BallNumber)> result = new();
+            List<(int HoleNumber, int BallNumber)> result = new();
             var balls = GetBallsOrderedFromGravitySide(gameboard);
             foreach (var ball in balls)
             {

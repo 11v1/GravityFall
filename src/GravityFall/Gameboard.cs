@@ -12,32 +12,32 @@ namespace Aura.GravityFall
         /// <summary>
         /// Cells number in X direction
         /// </summary>
-        public uint SizeX { get; }
+        public int SizeX { get; }
 
         /// <summary>
         /// Minimum X value bound
         /// </summary>
-        public uint MinX { get; }
+        public int MinX { get; }
 
         /// <summary>
         /// Maximum X value bound
         /// </summary>
-        public uint MaxX { get; }
+        public int MaxX { get; }
 
         /// <summary>
         /// Cells number in Y direction
         /// </summary>
-        public uint SizeY { get; }
+        public int SizeY { get; }
 
         /// <summary>
         /// Minimum Y value bound
         /// </summary>
-        public uint MinY { get; }
+        public int MinY { get; }
 
         /// <summary>
         /// Maximum Y value bound
         /// </summary>
-        public uint MaxY { get; }
+        public int MaxY { get; }
 
         /// <summary>
         /// Holes positioned on the gameboard
@@ -65,7 +65,7 @@ namespace Aura.GravityFall
         /// Removes ball from gameboard
         /// </summary>
         /// <param name="number"></param>
-        public void RemoveBall(uint number);
+        public void RemoveBall(int number);
 
         /// <summary>
         /// Applies action to gameboard.
@@ -73,7 +73,7 @@ namespace Aura.GravityFall
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public IEnumerable<(uint HoleNumber, uint BallNumber)> ApplyAction(IAction action);
+        public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IAction action);
     }
 
     class Gameboard : IGameboard
@@ -83,7 +83,7 @@ namespace Aura.GravityFall
          *  Ctors
         /*************************************************************/
 
-        public Gameboard(uint xSize, uint ySize, IEnumerable<IGameboardObject> holes, IEnumerable<IGameboardObject> balls)
+        public Gameboard(int xSize, int ySize, IEnumerable<IGameboardObject> holes, IEnumerable<IGameboardObject> balls)
         {
             // Setting gameboard size
             SizeX = xSize;
@@ -103,23 +103,23 @@ namespace Aura.GravityFall
          *  Properties
         /*************************************************************/
 
-        public uint SizeX { get; }
+        public int SizeX { get; }
 
-        public uint MinX => 0;
+        public int MinX => 0;
 
-        public uint MaxX => SizeX - 1;
+        public int MaxX => SizeX - 1;
 
-        public uint SizeY { get; }
+        public int SizeY { get; }
 
-        public uint MinY => 0;
+        public int MinY => 0;
 
-        public uint MaxY => SizeY - 1;
+        public int MaxY => SizeY - 1;
 
         public IReadOnlyCollection<IGameboardObject> Holes => _holes.Values;
-        private readonly Dictionary<uint, IGameboardObject> _holes = new();
+        private readonly Dictionary<int, IGameboardObject> _holes = new();
 
         public IReadOnlyCollection<IGameboardObject> Balls => _balls.Values;
-        private readonly Dictionary<uint, IGameboardObject> _balls = new();
+        private readonly Dictionary<int, IGameboardObject> _balls = new();
 
 
         /*************************************************************
@@ -139,14 +139,14 @@ namespace Aura.GravityFall
                 _balls.Add(b.Number, b);
         }
 
-        public void RemoveBall(uint number)
+        public void RemoveBall(int number)
         {
             if (!_balls.ContainsKey(number))
                 throw new ArgumentException(nameof(number));
             _balls.Remove(number);
         }
 
-        public IEnumerable<(uint HoleNumber, uint BallNumber)> ApplyAction(IAction action) =>
+        public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IAction action) =>
             action.ApplyAction(this);
 
         /// <summary>
