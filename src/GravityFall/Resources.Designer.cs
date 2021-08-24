@@ -113,5 +113,41 @@ namespace Aura.GravityFall {
                 return ResourceManager.GetString("ExceptionObjectPositionOutOfBoard", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bottom.
+        /// </summary>
+        internal static string GravityBottom {
+            get {
+                return ResourceManager.GetString("GravityBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        internal static string GravityLeft {
+            get {
+                return ResourceManager.GetString("GravityLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        internal static string GravityRight {
+            get {
+                return ResourceManager.GetString("GravityRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top.
+        /// </summary>
+        internal static string GravityTop {
+            get {
+                return ResourceManager.GetString("GravityTop", resourceCulture);
+            }
+        }
     }
 }

@@ -135,4 +135,16 @@
   <data name="ExceptionObjectPositionOutOfBoard" xml:space="preserve">
     <value>Object's position {0}, {1} is out of gameboard bounds {2}-{3}, {4}-{5}</value>
   </data>
+  <data name="GravityBottom" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="GravityLeft" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="GravityRight" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="GravityTop" xml:space="preserve">
+    <value>Top</value>
+  </data>
 </root>

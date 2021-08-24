@@ -403,6 +403,8 @@ namespace Aura.GravityFall.Tests
 
         private class TestModifyBallsAction : IAction
         {
+            public string Name => throw new NotImplementedException();
+
             public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IGameboard gameboard)
             {
                 var ball = gameboard.Balls.First(p => p.Number == 1);
@@ -417,6 +419,8 @@ namespace Aura.GravityFall.Tests
 
         private class TestBallToHoleAction : IAction
         {
+            public string Name => throw new NotImplementedException();
+
             public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IGameboard gameboard)
             {
                 gameboard.RemoveBall(1);
