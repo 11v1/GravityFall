@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Aura.GravityFall
 {
-
     /// <summary>
-    /// Serves to same gameboard dynamic objects
+    /// Serves to save gameboard dynamic objects states
     /// </summary>
     interface IGameboardSnapshot
     {
@@ -16,10 +15,21 @@ namespace Aura.GravityFall
         /// Balls positions
         /// </summary>
         public IReadOnlyCollection<IGameboardObject> Balls { get; }
+
+        /// <summary>
+        /// Compares this instance values to other
+        /// </summary>
+        /// <remarks>
+        /// Implementing our own Equals like method.
+        /// Since <see cref="IGameboardSnapshot"/> can be modified (to be certain technically it may be but it should not!) overriding <see cref="Object.Equals(object?)"/> is not recomended
+        /// </remarks>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool ValueEquals(IGameboardSnapshot other);
     }
 
     /// <inheritdoc cref="IGameboardSnapshot"/>
-    class GameboardSnapshot : IGameboardSnapshot
+    sealed class GameboardSnapshot : IGameboardSnapshot
     {
         public GameboardSnapshot(IEnumerable<IGameboardObject> balls)
         {
@@ -29,5 +39,20 @@ namespace Aura.GravityFall
 
         public IReadOnlyCollection<IGameboardObject> Balls => _balls.AsReadOnly();
         private readonly List<IGameboardObject> _balls = new();
+
+        public bool ValueEquals(IGameboardSnapshot other)
+        {
+            if (other == null)
+                throw new NullReferenceException(nameof(other));
+
+            if (Balls.Count != other.Balls.Count)
+                return false;
+
+            foreach (var ball in Balls)
+                if (other.Balls.FirstOrDefault(p => p.ValueEquals(ball)) == null)
+                    return false;
+
+            return true;
+        }
     }
 }
