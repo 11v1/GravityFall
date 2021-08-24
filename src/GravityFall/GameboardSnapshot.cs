@@ -57,7 +57,7 @@ namespace Aura.GravityFall
          *  Properties
         /*************************************************************/
 
-        public IReadOnlyCollection<IGameboardObject> Balls => _balls.AsReadOnly();
+        public IReadOnlyCollection<IGameboardObject> Balls => _balls.Select(p => (IGameboardObject)p.Clone()).ToList().AsReadOnly(); // Making internal items inaccessible. Returning objects copy
         private readonly List<IGameboardObject> _balls = new();
 
 
@@ -70,11 +70,12 @@ namespace Aura.GravityFall
             if (other == null)
                 throw new NullReferenceException(nameof(other));
 
-            if (Balls.Count != other.Balls.Count)
+            if (_balls.Count != other.Balls.Count)
                 return false;
 
-            foreach (var ball in Balls)
-                if (other.Balls.FirstOrDefault(p => p.ValueEquals(ball)) == null)
+            var otherBalls = other.Balls;
+            foreach (var ball in _balls)
+                if (otherBalls.FirstOrDefault(p => p.ValueEquals(ball)) == null)
                     return false;
 
             return true;
