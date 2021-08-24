@@ -273,7 +273,7 @@ namespace Aura.GravityFall.Tests
         }
 
         [TestMethod()]
-        public void GameBalls2ToHoles2NotAccessibleTest()
+        public void GameBalls2ToHoles2NotAccessibleTest1()
         {
             // arrange
             IKernel kernel = new StandardKernel();
@@ -289,6 +289,41 @@ namespace Aura.GravityFall.Tests
             {
                 new GameboardObject() { Number = 1, X = 8, Y = 9 },
                 new GameboardObject() { Number = 2, X = 9, Y = 9 },
+            });
+
+            // act
+            GamePlayer gamePlayer = new(gameboard);
+            var solution = gamePlayer.GetShortestSolution(new List<IAction>()
+            {
+                new GravityBottomAction(),
+                new GravityTopAction(),
+                new GravityLeftAction(),
+                new GravityRightAction(),
+            });
+
+            // assert
+            Assert.IsNull(solution);
+        }
+
+        [TestMethod()]
+        public void GameBalls4ToHoles2NotAccessibleTest1()
+        {
+            // arrange
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 0, Y = 1 },
+                new GameboardObject() { Number = 2, X = 1, Y = 1 },
+            }, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 1, X = 6, Y = 9 },
+                new GameboardObject() { Number = 2, X = 7, Y = 9 },
+                new GameboardObject() { Number = 3, X = 8, Y = 9 },
+                new GameboardObject() { Number = 4, X = 9, Y = 9 },
             });
 
             // act
