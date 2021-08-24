@@ -122,7 +122,6 @@ namespace Aura.GravityFall
                 if (deadend)
                 {
                     // Removing current level action
-                    currentLevelActions.RemoveAt(i);
                     continue;
                 }
                 // If no balls left, than we have won
@@ -133,17 +132,15 @@ namespace Aura.GravityFall
                 if (gameboardSnapshot.ValueEquals(currentLevelActions[i].GameboardSnapshot))
                 {
                     // Removing current level action
-                    currentLevelActions.RemoveAt(i);
                     continue;
                 }
                 // Checking for state looping
                 if (CheckForActionsLoop(gameboardSnapshot, currentLevelActions[i]))
                 {
                     // Removing current level action
-                    currentLevelActions.RemoveAt(i);
                     continue;
                 }
-                // Not won, not lost, preparing next tree level actions
+                // Not won nor lost, preparing next tree level actions
                 foreach (var action in actions)
                 {
                     if (action == currentLevelActions[i].Action)
