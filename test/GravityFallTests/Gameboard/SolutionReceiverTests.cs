@@ -380,5 +380,83 @@ namespace Aura.GravityFall.Tests
             Assert.AreEqual(Resources.GravityTop, solution[3].Name);
             Assert.AreEqual(Resources.GravityRight, solution[4].Name);
         }
+
+        [TestMethod()]
+        public void GameBalls3ToHoles3Steps4Test2()
+        {
+            // arrange
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 0, X = 1, Y = 7 },
+                new GameboardObject() { Number = 1, X = 1, Y = 9 },
+                new GameboardObject() { Number = 2, X = 1, Y = 0 },
+                new GameboardObject() { Number = 3, X = 8, Y = 0 },
+            }, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 0, X = 3, Y = 3 },
+                new GameboardObject() { Number = 1, X = 6, Y = 3 },
+                new GameboardObject() { Number = 2, X = 1, Y = 3 },
+            });
+
+            // act
+            SolutionReceiver solutionReceiver = new();
+            var solution = solutionReceiver.GetShortestSolution(gameboard, new List<IAction>()
+            {
+                new GravityBottomAction(),
+                new GravityTopAction(),
+                new GravityLeftAction(),
+                new GravityRightAction(),
+            });
+
+            // assert
+            Assert.IsNotNull(solution);
+            Assert.AreEqual(5, solution.Count);
+            Assert.AreEqual(Resources.GravityLeft, solution[0].Name);
+            Assert.AreEqual(Resources.GravityBottom, solution[1].Name);
+            Assert.AreEqual(Resources.GravityLeft, solution[2].Name);
+            Assert.AreEqual(Resources.GravityTop, solution[3].Name);
+            Assert.AreEqual(Resources.GravityRight, solution[4].Name);
+        }
+
+        [TestMethod()]
+        public void GameBalls3ToHoles3Steps4Test3()
+        {
+            // arrange
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
+
+            Gameboard gameboard = (Gameboard)kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 0, X = 1, Y = 7 },
+                new GameboardObject() { Number = 1, X = 1, Y = 9 },
+                new GameboardObject() { Number = 2, X = 1, Y = 0 },
+            }, new List<GameboardObject>()
+            {
+                new GameboardObject() { Number = 0, X = 3, Y = 3 },
+                new GameboardObject() { Number = 1, X = 6, Y = 3 },
+                new GameboardObject() { Number = 2, X = 1, Y = 3 },
+                new GameboardObject() { Number = 3, X = 8, Y = 3 },
+            });
+
+            // act
+            SolutionReceiver solutionReceiver = new();
+            var solution = solutionReceiver.GetShortestSolution(gameboard, new List<IAction>()
+            {
+                new GravityBottomAction(),
+                new GravityTopAction(),
+                new GravityLeftAction(),
+                new GravityRightAction(),
+            });
+
+            // assert
+            Assert.IsNull(solution);
+        }
     }
 }
