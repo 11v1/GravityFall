@@ -147,4 +147,19 @@
   <data name="GravityTop" xml:space="preserve">
     <value>Top</value>
   </data>
+  <data name="NoSolution" xml:space="preserve">
+    <value>There is no solution</value>
+  </data>
+  <data name="RequestBalls" xml:space="preserve">
+    <value>Gameboard balls. Format: n x y, n x y, ... (comma delimiter between objects, n - number, x/y - x/y coordinate</value>
+  </data>
+  <data name="RequestHoles" xml:space="preserve">
+    <value>Gameboard holes. Format: n x y, n x y, ... (comma delimiter between objects, n - number, x/y - x/y coordinate</value>
+  </data>
+  <data name="RequestXSize" xml:space="preserve">
+    <value>Gameboard X size: </value>
+  </data>
+  <data name="RequestYSize" xml:space="preserve">
+    <value>Gameboard Y size: </value>
+  </data>
 </root>

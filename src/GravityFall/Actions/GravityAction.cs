@@ -23,6 +23,11 @@ namespace Aura.GravityFall.Actions
          *  Methods
         /*************************************************************/
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
         public IEnumerable<(int HoleNumber, int BallNumber)> ApplyAction(IGameboard gameboard)
         {
             List<(int HoleNumber, int BallNumber)> result = new();

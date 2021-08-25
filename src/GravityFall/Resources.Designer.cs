@@ -149,5 +149,50 @@ namespace Aura.GravityFall {
                 return ResourceManager.GetString("GravityTop", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no solution.
+        /// </summary>
+        internal static string NoSolution {
+            get {
+                return ResourceManager.GetString("NoSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gameboard balls. Format: n x y, n x y, ... (comma delimiter between objects, n - number, x/y - x/y coordinate.
+        /// </summary>
+        internal static string RequestBalls {
+            get {
+                return ResourceManager.GetString("RequestBalls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gameboard holes. Format: n x y, n x y, ... (comma delimiter between objects, n - number, x/y - x/y coordinate.
+        /// </summary>
+        internal static string RequestHoles {
+            get {
+                return ResourceManager.GetString("RequestHoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gameboard X size: .
+        /// </summary>
+        internal static string RequestXSize {
+            get {
+                return ResourceManager.GetString("RequestXSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gameboard Y size: .
+        /// </summary>
+        internal static string RequestYSize {
+            get {
+                return ResourceManager.GetString("RequestYSize", resourceCulture);
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace Aura.GravityFall
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(/*string[] args*/)
         {
             try
             {
@@ -27,13 +27,13 @@ namespace Aura.GravityFall
                 kernel.Bind<GravityTopAction>().ToSelf().InSingletonScope();
 
                 // Asking user for data
-                Console.WriteLine("Gameboard X size: ");
+                Console.WriteLine(Resources.RequestXSize);
                 int sizeX = int.Parse(Console.ReadLine());
-                Console.WriteLine("Gameboard Y size: ");
+                Console.WriteLine(Resources.RequestYSize);
                 int sizeY = int.Parse(Console.ReadLine());
-                Console.WriteLine("Gameboard holes. Format: n x y, n x y, ... (comma delimiter between objects, n - number, x/y - x/y coordinate");
+                Console.WriteLine(Resources.RequestHoles);
                 List<IGameboardObject> holes = ParseCreateGameboardObject(kernel.Get<IGameboardObjectFactory>(), Console.ReadLine());
-                Console.WriteLine("Gameboard balls. Format: n x y, n x y, ... (comma delimiter between objects, n - number, x/y - x/y coordinate");
+                Console.WriteLine(Resources.RequestBalls);
                 List<IGameboardObject> balls = ParseCreateGameboardObject(kernel.Get<IGameboardObjectFactory>(), Console.ReadLine());
 
                 // Searching for solution
@@ -48,14 +48,11 @@ namespace Aura.GravityFall
                 });
                 if (solution == null)
                 {
-                    WriteResultToConsole("There is no solution", ConsoleColor.Red);
+                    WriteResultToConsole(Resources.NoSolution, ConsoleColor.Red);
                 }
                 else
                 {
-                    StringBuilder stringBuilder = new();
-                    foreach (var action in solution)
-                        stringBuilder.Append(action.Name);
-                    WriteResultToConsole(stringBuilder.ToString(), ConsoleColor.Green);
+                    WriteResultToConsole(string.Join(" -> ", solution), ConsoleColor.Green);
                 }
             }
             catch (Exception e)
@@ -74,7 +71,7 @@ namespace Aura.GravityFall
 
         private static IGameboardObject CreateGameboardObject(IGameboardObjectFactory factory, string str)
         {
-            var value = str.Split(" ");
+            var value = str.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             var result = factory.CreateGameboardObject(int.Parse(value[0]));
             result.X = int.Parse(value[1]);
             result.Y = int.Parse(value[2]);

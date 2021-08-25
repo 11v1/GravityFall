@@ -89,6 +89,7 @@ namespace Aura.GravityFall
         /// <param name="actions"></param>
         /// <param name="currentLevelActions"></param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0042:Deconstruct variable declaration", Justification = "<Pending>")]
         private IList<IAction> DoGetShortestSolution(IGameboard gameboard, IEnumerable<IAction> actions, IList<ActionTreeItem> currentLevelActions)
         {
             // No current level actions. It means that there is no possible solution
