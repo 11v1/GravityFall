@@ -75,7 +75,7 @@ namespace Aura.GravityFall
         public bool ValueEquals(IGameboardSnapshot other)
         {
             if (other == null)
-                throw new NullReferenceException(nameof(other));
+                throw new ArgumentNullException(nameof(other));
 
             if (_balls.Count != other.Balls.Count)
                 return false;
