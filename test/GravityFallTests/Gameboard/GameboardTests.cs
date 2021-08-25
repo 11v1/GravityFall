@@ -296,6 +296,7 @@ namespace Aura.GravityFall.Tests
             // arrange
             IKernel kernel = new StandardKernel();
             kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboardSnapshotFactory>().ToFactory();
             kernel.Bind<IGameboard>().To<Gameboard>();
             kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
 
@@ -319,6 +320,7 @@ namespace Aura.GravityFall.Tests
             // arrange
             IKernel kernel = new StandardKernel();
             kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboardSnapshotFactory>().ToFactory();
             kernel.Bind<IGameboard>().To<Gameboard>();
             kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
 
@@ -342,6 +344,7 @@ namespace Aura.GravityFall.Tests
             // arrange
             IKernel kernel = new StandardKernel();
             kernel.Bind<IGameboardFactory>().ToFactory();
+            kernel.Bind<IGameboardSnapshotFactory>().ToFactory();
             kernel.Bind<IGameboard>().To<Gameboard>();
             kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
 

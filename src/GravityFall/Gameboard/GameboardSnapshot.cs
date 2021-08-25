@@ -38,6 +38,14 @@ namespace Aura.GravityFall
         public bool ValueEquals(IGameboardSnapshot other);
     }
 
+    /// <summary>
+    /// Abstract fabric for GameboardSnapshot
+    /// </summary>
+    interface IGameboardSnapshotFactory
+    {
+        IGameboardSnapshot CreateSnapshot(IEnumerable<IGameboardObject> balls);
+    }
+
     /// <inheritdoc cref="IGameboardSnapshot"/>
     sealed class GameboardSnapshot : IGameboardSnapshot
     {

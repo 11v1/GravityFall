@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ninject;
+using Ninject.Extensions.Factory;
 
 namespace Aura.GravityFall.Actions.Tests
 {
@@ -88,7 +90,12 @@ namespace Aura.GravityFall.Actions.Tests
         public void ApplyActionTest()
         {
             // arrange
-            Gameboard gameboard = new(null, 10, 10, TestHoles, TestBalls);
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IGameboard>().To<Gameboard>();
+            kernel.Bind<IGameboardSnapshotFactory>().ToFactory();
+            kernel.Bind<IGameboardFactory>().ToFactory();
+
+            var gameboard = kernel.Get<IGameboardFactory>().CreateGameboard(10, 10, TestHoles, TestBalls);
 
             // act
             var result = gameboard.ApplyAction(new GravityTopAction());

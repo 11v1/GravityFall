@@ -18,9 +18,10 @@ namespace Aura.GravityFall
                 kernel.Bind<IGameboardObject>().To<GameboardObject>();
                 kernel.Bind<IGameboardSnapshot>().To<GameboardSnapshot>();
                 kernel.Bind<IGameboard>().To<Gameboard>();
+                kernel.Bind<ISolutionReceiver>().To<SolutionReceiver>();
                 kernel.Bind<IGameboardObjectFactory>().ToFactory();
                 kernel.Bind<IGameboardFactory>().ToFactory();
-                kernel.Bind<ISolutionReceiver>().To<SolutionReceiver>();
+                kernel.Bind<IGameboardSnapshotFactory>().ToFactory();
                 kernel.Bind<GravityBottomAction>().ToSelf().InSingletonScope();
                 kernel.Bind<GravityLeftAction>().ToSelf().InSingletonScope();
                 kernel.Bind<GravityRightAction>().ToSelf().InSingletonScope();
@@ -57,7 +58,7 @@ namespace Aura.GravityFall
             }
             catch (Exception e)
             {
-                WriteResultToConsole(e.Message, ConsoleColor.Red);
+                WriteResultToConsole($"Error: {e.Message}", ConsoleColor.Red);
             }
         }
 

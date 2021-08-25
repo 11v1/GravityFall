@@ -94,8 +94,6 @@ namespace Aura.GravityFall
     interface IGameboardFactory
     {
         IGameboard CreateGameboard(int sizeX, int sizeY, IEnumerable<IGameboardObject> holes, IEnumerable<IGameboardObject> balls);
-
-        IGameboardSnapshot CreateSnapshot(IEnumerable<IGameboardObject> balls);
     }
 
     /// <inheritdoc cref="IGameboard"/>
@@ -106,7 +104,7 @@ namespace Aura.GravityFall
          *  Ctors
         /*************************************************************/
 
-        public Gameboard(IGameboardFactory factory, int sizeX, int sizeY, IEnumerable<IGameboardObject> holes, IEnumerable<IGameboardObject> balls)
+        public Gameboard(IGameboardSnapshotFactory factory, int sizeX, int sizeY, IEnumerable<IGameboardObject> holes, IEnumerable<IGameboardObject> balls)
         {
             // Validating values
             if (sizeX < 1)
@@ -135,7 +133,7 @@ namespace Aura.GravityFall
          *  Fields
         /*************************************************************/
 
-        private readonly IGameboardFactory _factory;
+        private readonly IGameboardSnapshotFactory _factory;
 
 
         /*************************************************************
