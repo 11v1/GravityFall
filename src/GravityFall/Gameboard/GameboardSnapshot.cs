@@ -77,10 +77,10 @@ namespace Aura.GravityFall
             if (other == null)
                 throw new ArgumentNullException(nameof(other));
 
-            if (_balls.Count != other.Balls.Count)
+            var otherBalls = other.Balls;
+            if (_balls.Count != otherBalls.Count)
                 return false;
 
-            var otherBalls = other.Balls;
             foreach (var ball in _balls)
                 if (otherBalls.FirstOrDefault(p => p.ValueEquals(ball)) == null)
                     return false;
