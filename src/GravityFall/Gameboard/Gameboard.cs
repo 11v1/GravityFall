@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Aura.GravityFall
 {
+    /// <summary>
+    /// Two-dimensional board tha contains objects
+    /// </summary>
     interface IGameboard
     {
 

@@ -39,7 +39,7 @@ namespace Aura.GravityFall
         private class ActionTreeItem
         {
             /// <summary>
-            /// Reference to a parent action. Is null if it is root item
+            /// Reference to a parent action. Null if it is root item
             /// </summary>
             public ActionTreeItem Parent { get; init; }
 
@@ -49,7 +49,7 @@ namespace Aura.GravityFall
             public IAction Action { get; init; }
 
             /// <summary>
-            /// Gameboard state onwhich action is executed
+            /// Gameboard state on which action is executed
             /// </summary>
             public IGameboardSnapshot GameboardSnapshot { get; init; }
         }
@@ -98,7 +98,7 @@ namespace Aura.GravityFall
             // Actions for next tree level iteration
             List<ActionTreeItem> nextLevelActions = new();
             // Iterating current level actions
-            for (int i = currentLevelActions.Count - 1; i >= 0; i--)
+            for (int i = 0; i < currentLevelActions.Count; i++)
             {
                 // Loading balls positions
                 gameboard.LoadShapshot(currentLevelActions[i].GameboardSnapshot, true);
@@ -108,7 +108,7 @@ namespace Aura.GravityFall
                 bool deadend = false;
                 foreach (var item in ballsInholes)
                 {
-                    // Ball should fall only into the holes with the same Number. Otherwise this direction is losing one
+                    // Ball should fall only into the holes with the same number. Otherwise this direction is the losing one
                     if (item.HoleNumber != item.BallNumber)
                     {
                         deadend = true;
@@ -123,14 +123,8 @@ namespace Aura.GravityFall
                 // If no balls left, than we have won
                 if (gameboard.Balls.Count == 0)
                     return GetActionsFromRoot(currentLevelActions[i]);
-                // Checking for gameboard state remained unchanged. If so it is deadend
+                // Checking for state looping. If there is same balls position in some previous tree level, then this is deadend
                 IGameboardSnapshot gameboardSnapshot = gameboard.SaveSnapshot();
-                if (gameboardSnapshot.ValueEquals(currentLevelActions[i].GameboardSnapshot))
-                {
-                    // Removing current level action
-                    continue;
-                }
-                // Checking for state looping
                 if (CheckForActionsLoop(gameboardSnapshot, currentLevelActions[i]))
                 {
                     // Removing current level action
@@ -176,7 +170,7 @@ namespace Aura.GravityFall
         }
 
         /// <summary>
-        /// Checks previous steps for the equal to the current snapshot state
+        /// Checks previous tree steps for the equality to the current snapshot state
         /// </summary>
         /// <param name="currentSnapshot"></param>
         /// <param name="actionTreeItem"></param>
@@ -185,7 +179,7 @@ namespace Aura.GravityFall
         {
             while (actionTreeItem != null)
             {
-                if ( currentSnapshot.ValueEquals(actionTreeItem.GameboardSnapshot))
+                if (currentSnapshot.ValueEquals(actionTreeItem.GameboardSnapshot))
                     return true;
                 actionTreeItem = actionTreeItem.Parent;
             }

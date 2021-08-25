@@ -31,7 +31,6 @@ namespace Aura.GravityFall
         /// </summary>
         /// <remarks>
         /// Implementing our own Equals like method.
-        /// Since <see cref="IGameboardSnapshot"/> can be modified (to be certain technically it may be but it should not!) overriding <see cref="Object.Equals(object?)"/> is not recomended
         /// </remarks>
         /// <param name="other"></param>
         /// <returns></returns>
