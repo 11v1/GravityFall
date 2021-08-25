@@ -21,7 +21,7 @@ namespace Aura.GravityFall
         /// Performs set of actions to get shortest actions sequence to archive game goal
         /// </summary>
         /// <param name="actions"></param>
-        /// <returns></returns>
+        /// <returns>List of actions to reach solution, null if solution does not exist</returns>
         public IList<IAction> GetShortestSolution(IGameboard gameboard, IEnumerable<IAction> actions);
     }
 
