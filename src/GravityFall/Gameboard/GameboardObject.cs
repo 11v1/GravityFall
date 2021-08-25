@@ -66,6 +66,9 @@ namespace Aura.GravityFall
             Number = number;
         }
 
+        public GameboardObject()
+        { }
+
 
         /*************************************************************
          *  Properties

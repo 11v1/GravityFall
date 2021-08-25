@@ -160,7 +160,7 @@ namespace Aura.GravityFall
         /// <returns></returns>
         private static IList<IAction> GetActionsFromRoot(ActionTreeItem actionTreeItem)
         {
-            void DoGetActionsFromParent(IList<IAction> actions, ActionTreeItem actionTreeItem)
+            static void DoGetActionsFromParent(IList<IAction> actions, ActionTreeItem actionTreeItem)
             {
                 if (actionTreeItem == null)
                     return;
